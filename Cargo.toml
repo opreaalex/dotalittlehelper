@@ -1,0 +1,6 @@
+[package]
+name = "dotalittlehelper"
+version = "0.1.0"
+authors = ["Alexandru Oprea <alexandru.oprea1989@gmail.com>"]
+
+[dependencies]
