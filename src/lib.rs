@@ -1,9 +1,6 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-    }
-}
+extern crate json;
 
-pub mod datatypes;
+pub mod adapter;
+pub mod business;
+pub mod entity;
 
