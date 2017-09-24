@@ -18,12 +18,11 @@ fn read_file_contents(path: &str) -> String {
 }
 
 pub fn hero_apply_item(hero: Entity, item: Entity) -> Result<Entity, String> {
-    if !hero.is_type(EntityType::Hero) && 
-        !item.is_type(EntityType::Item) {
-        return Result::Err(String::from(
-            "Must provide Hero and Item arguments, in that order"
-        ));
+    if hero.is_type(EntityType::Hero) && item.is_type(EntityType::Item) {
+        return Result::Ok(hero + item);
     }
-    Result::Ok(hero + item)
+    Result::Err(String::from(
+        "Must provide Hero and Item arguments, in that order"
+    ))
 }
 
