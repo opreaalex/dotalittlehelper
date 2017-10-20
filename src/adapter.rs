@@ -1,6 +1,6 @@
 use json;
 
-use entity::{Attribute, Entity, EntityType, Identity};
+use entity::*;
 
 const ERR_MSG_CONF_GENERIC: &'static str = "Wrong json configuration format";
 
@@ -17,7 +17,9 @@ pub fn read_json_configuration(s: &str) -> Vec<Entity> {
     fn read_attribute(j: &json::JsonValue) -> Attribute {
         Attribute::new(
             read_identity(&j["identity"]),
-            j["value"].as_i32().expect(ERR_MSG_CONF_GENERIC)
+            read_attribute_type(&j["attribute_type"]),
+            read_calculation(&j["calculation"]),
+            j["value"].as_i32()
         )
     }
 
@@ -33,6 +35,32 @@ pub fn read_json_configuration(s: &str) -> Vec<Entity> {
         match j.as_str().expect(ERR_MSG_CONF_GENERIC) {
             "Hero" => EntityType::Hero,
             "Item" => EntityType::Item,
+            _ => panic!(ERR_MSG_CONF_GENERIC)
+        }
+    }
+
+    fn read_attribute_type(j: &json::JsonValue) -> AttributeType {
+        match j.as_str().expect(ERR_MSG_CONF_GENERIC) {
+            "Base" => AttributeType::Base,
+            "Calculated" => AttributeType::Calculated,
+            _ => panic!(ERR_MSG_CONF_GENERIC)
+        }
+    }
+
+    fn read_calculation(j: &json::JsonValue) -> Option<Calculation> {
+        if j.is_null() {
+            return Option::None;
+        }
+        Option::Some(Calculation::new(
+            j["operands"].members().map(|o| read_attribute(&o)).collect(),
+            read_operation(&j["operation"])
+        ))
+    }
+
+    fn read_operation(j: &json::JsonValue) -> Operation {
+        match j.as_str().expect(ERR_MSG_CONF_GENERIC) {
+            "Add" => Operation::Add,
+            "Multiply" => Operation::Multiply,
             _ => panic!(ERR_MSG_CONF_GENERIC)
         }
     }

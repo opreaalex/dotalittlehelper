@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::io::prelude::*;
 
-use entity::{Entity, EntityType};
+use entity::*;
 
 pub fn load_configuration(path: &str,
                           func: &Fn(&str) -> Vec<Entity>) -> Vec<Entity> {
@@ -17,12 +17,12 @@ fn read_file_contents(path: &str) -> String {
     contents
 }
 
-pub fn hero_apply_item(hero: Entity, item: Entity) -> Result<Entity, String> {
-    if hero.is_type(EntityType::Hero) && item.is_type(EntityType::Item) {
-        return Result::Ok(hero + item);
+pub fn calculate_attribute_value(e: &Entity, a: &Attribute) -> i32 {
+    match a.get_type() {
+        AttributeType::Base => println!("This is fixed"),
+        AttributeType::Calculated => println!("This is calculated")
     }
-    Result::Err(String::from(
-        "Must provide Hero and Item arguments, in that order"
-    ))
+    println!("{:?}", e);
+    0
 }
 

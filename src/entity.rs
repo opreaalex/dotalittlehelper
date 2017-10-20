@@ -1,5 +1,4 @@
-use std::ops::Add;
-use std::collections::hash_map::{HashMap, Entry};
+use std::collections::hash_map::{HashMap};
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq)]
 pub struct Identity {
@@ -19,30 +18,55 @@ impl Identity {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Attribute {
     identity: Identity,
-    value:    i32
+    attribute_type: AttributeType,
+    calculation: Option<Calculation>,
+    value: Option<i32>
 }
 
 impl Attribute {
-    pub fn new(identity: Identity, value: i32) -> Attribute {
+    pub fn new(identity: Identity,
+               attribute_type: AttributeType,
+               calculation: Option<Calculation>,
+               value: Option<i32>) -> Attribute {
         Attribute {
             identity: identity,
+            attribute_type: attribute_type,
+            calculation: calculation,
             value: value
+        }
+    }
+
+    pub fn get_type(&self) -> AttributeType {
+        self.attribute_type.clone()
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum AttributeType {
+    Base,
+    Calculated
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct Calculation {
+    operands: Vec<Attribute>,
+    operation: Operation
+}
+
+impl Calculation {
+    pub fn new(operands: Vec<Attribute>,
+               operation: Operation) -> Calculation {
+        Calculation {
+            operands: operands,
+            operation: operation
         }
     }
 }
 
-impl Add for Attribute {
-    type Output = Attribute;
-
-    fn add(self, other: Attribute) -> Attribute {
-        if self.identity != other.identity {
-            return self;
-        }
-        Attribute { 
-            identity: self.identity,
-            value: self.value + other.value
-        }
-    }
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum Operation {
+    Add,
+    Multiply
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -73,31 +97,8 @@ impl Entity {
         }
     }
 
-    pub fn is_type(&self, t: EntityType) -> bool {
-        self.entity_type == t
-    }
-}
-
-impl Add for Entity {
-    type Output = Entity;
-
-    fn add(self, other: Entity) -> Entity {
-        let mut attributes = self.attributes;
-        for (key, val) in other.attributes {
-            match attributes.entry(key) {
-                Entry::Occupied(mut e) => {
-                    let attr = e.get_mut(); 
-                    *attr = attr.clone() + val;
-                }, 
-                Entry::Vacant(e) => { e.insert(val); }
-            }
-        }
-        Entity {
-            identity: self.identity,
-            entity_type: self.entity_type,
-            attributes: attributes
-
-        }
+    pub fn get_attributes(&self) -> Vec<Attribute> {
+        self.attributes.iter().map(|(_, v)| v.clone()).collect()
     }
 }
 

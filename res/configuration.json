@@ -4,33 +4,33 @@
       "identity": {"id": "luna", "name": "Luna"},
       "entity_type": "Hero",
       "attributes": [
-        {"identity": {"id": "strenght", "name": "Strenght"}, "value": 11},
-        {"identity": {"id": "agility", "name": "Agility"}, "value": 17},
-        {"identity": {"id": "inteligence", "name": "Inteligence"}, "value": 12}
+        {"identity": {"id": "strenght", "name": "Strenght"}, "value": 11, "attribute_type": "Base", "calculation": null},
+        {"identity": {"id": "agility", "name": "Agility"}, "value": 17, "attribute_type": "Base", "calculation": null},
+        {"identity": {"id": "inteligence", "name": "Inteligence"}, "value": 12, "attribute_type": "Base", "calculation": null}
       ]
     }, {
       "identity": {"id": "sand_king", "name": "Sand King"},
       "entity_type": "Hero",
       "attributes": [
-        {"identity": {"id": "strenght", "name": "Strenght"}, "value": 18},
-        {"identity": {"id": "agility", "name": "Agility"}, "value": 10},
-        {"identity": {"id": "inteligence", "name": "Inteligence"}, "value": 11}
+        {"identity": {"id": "strenght", "name": "Strenght"}, "value": 18, "attribute_type": "Base", "calculation": null},
+        {"identity": {"id": "agility", "name": "Agility"}, "value": 10, "attribute_type": "Base", "calculation": null},
+        {"identity": {"id": "inteligence", "name": "Inteligence"}, "value": 11, "attribute_type": "Base", "calculation": null}
       ]
     }, {
       "identity": {"id": "storm_spirit", "name": "Storm Spirit"},
       "entity_type": "Hero",
       "attributes": [
-        {"identity": {"id": "strenght", "name": "Strenght"}, "value": 13},
-        {"identity": {"id": "agility", "name": "Agility"}, "value": 10},
-        {"identity": {"id": "inteligence", "name": "Inteligence"}, "value": 17}
+        {"identity": {"id": "strenght", "name": "Strenght"}, "value": 13, "attribute_type": "Base", "calculation": null},
+        {"identity": {"id": "agility", "name": "Agility"}, "value": 10, "attribute_type": "Base", "calculation": null},
+        {"identity": {"id": "inteligence", "name": "Inteligence"}, "value": 17, "attribute_type": "Base", "calculation": null}
       ]
     }, {
         "identity": {"id": "branch", "name": "Branch"},
         "entity_type": "Item",
         "attributes": [
-            {"identity": {"id": "strenght", "name": "Strenght"}, "value": 1},
-            {"identity": {"id": "agility", "name": "Agility"}, "value": 1},
-            {"identity": {"id": "inteligence", "name": "Inteligence"}, "value": 1}
+            {"identity": {"id": "strenght", "name": "Strenght"}, "value": 1, "attribute_type": "Base", "calculation": null},
+            {"identity": {"id": "agility", "name": "Agility"}, "value": 1, "attribute_type": "Base", "calculation": null},
+            {"identity": {"id": "inteligence", "name": "Inteligence"}, "value": 1, "attribute_type": "Base", "calculation": null}
         ]
     }
   ]
