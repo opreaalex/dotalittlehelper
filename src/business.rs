@@ -17,12 +17,35 @@ fn read_file_contents(path: &str) -> String {
     contents
 }
 
-pub fn calculate_attribute_value(e: &Entity, a: &Attribute) -> i32 {
+pub fn calculate_attribute_value(a: &Attribute, e: &Entity) -> Result<i32, String> {
     match a.get_type() {
-        AttributeType::Base => println!("This is fixed"),
-        AttributeType::Calculated => println!("This is calculated")
+        AttributeType::Base => match a.get_value() {
+            Some(v) => Ok(v),
+            None => Err(String::from("Base attribute must have a value"))
+        },
+        AttributeType::Calculated => match a.get_calculation() {
+            Some(c) => {
+                let values: Vec<i32> = c.get_operands().iter()
+                    .filter(|o| o.get_value().is_some())
+                    .map(|o| o.get_value().unwrap())
+                    .collect();
+                let mut sum = 0;
+                match c.get_operation() {
+                    Operation::Add => {
+                        for v in values {
+                            sum += v;
+                        }
+                    },
+                    Operation::Multiply => {
+                        for v in values {
+                            sum *= v;
+                        }
+                    }
+                };
+                Ok(sum)
+            },
+            None => Err(String::from("Calculated attribute must have a calculation"))
+        }
     }
-    println!("{:?}", e);
-    0
 }
 

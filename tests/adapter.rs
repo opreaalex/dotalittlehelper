@@ -9,7 +9,12 @@ fn read_json_configuration() {
             "identity": {"id": "test", "name": "Test"},
             "entity_type": "Hero",
             "attributes": [{
-                "identity": {"id": "test_attr", "name": "Test Attr"},
+                "identity": {
+                    "id": "test_attr",
+                    "name": "Test Attr"
+                },
+                "attribute_type": "Base",
+                "calculation": null,
                 "value": 9001
             }]
         }]
@@ -25,7 +30,9 @@ fn read_json_configuration() {
                 entity::Identity::new(
                     String::from("test_attr"), String::from("Test Attr")
                 ),
-                9001
+                entity::AttributeType::Base,
+                None,
+                Some(9001)
             )
         )
     );

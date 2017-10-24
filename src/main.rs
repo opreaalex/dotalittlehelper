@@ -20,7 +20,7 @@ fn main() {
     println!("Loaded the following entities:");
     for e in entities {
         for a in e.get_attributes() {
-            calculate_attribute_value(&e, &a);
+            calculate_attribute_value(&a, &e);
         }
     }
 }
